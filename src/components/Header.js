@@ -1,24 +1,29 @@
-// src/components/Header.js
 import React from 'react';
-import { Navbar, Container, Button } from 'react-bootstrap';
-import './Header.css';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import InputBase from '@mui/material/InputBase';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 function Header() {
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
-      <Container>
-        <Navbar.Brand>
-          <img
-            src="/images/logo.jpg" // Access the image using a relative path
-            alt="Pasta Food Logo"
-            width="40"
-            height="40"
-            className="logo"
-          />
-          Pasta Food
-        </Navbar.Brand>
-      </Container>
-    </Navbar>
+    <AppBar position="static">
+      <Toolbar>
+        <Box display="flex" alignItems="center">
+          <img src="/images/logo.jpg" alt="Logo" width="40" height="40" />
+          <Typography variant="h6" sx={{ marginLeft: 2 }}>
+            Rose Petal Bistro
+          </Typography>
+          
+        </Box>
+        <Box display="flex" flexGrow={1} justifyContent="flex-end">
+          <Button color="inherit">Home</Button>
+          <Button color="inherit">About Us</Button>
+          <Button color="inherit">Sign In</Button>
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 }
 
