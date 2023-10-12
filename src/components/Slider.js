@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Paper, Button } from '@mui/material';
-import pizzaImage from './images/pizza.jpg';
-import hotdogImage from './images/hotdog.jpg';
-import pastaImage from './images/pasta.jpg';
-import spaghettiImage from './images/spaghetti.jpg';
-import noodlesImage from './images/noodles.jpg';
+import pizzaImage from '../images/pizza.jpg';
+import hotdogImage from '../images/hotdog.jpg';
+import pastaImage from '../images/pasta.jpg';
+import spaghettiImage from '../images/spaghetti.jpg';
+import noodlesImage from '../images/noodles.jpg';
+
 
 
 function Slider() {

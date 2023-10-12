@@ -9,7 +9,7 @@ import {
   Grid,
   CardMedia,
 } from '@mui/material';
-import logoImage from './images/logo.jpg'; // Import the image
+import logoImage from '../images/logo.jpg';
 
 function Contact() {
   return (
