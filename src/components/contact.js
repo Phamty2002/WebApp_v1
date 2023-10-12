@@ -9,10 +9,11 @@ import {
   Grid,
   CardMedia,
 } from '@mui/material';
+import logoImage from './images/logo.jpg'; // Import the image
 
 function Contact() {
   return (
-    <Container maxWidth="md"> {/* Increase the maximum width to "md" */}
+    <Container maxWidth="md">
       <Box mt={5}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
@@ -20,7 +21,7 @@ function Contact() {
               component="img"
               alt="Contact Image"
               height="450"
-              image="/static/images/logo.jpg"
+              image={logoImage} // Use the imported image
             />
           </Grid>
           <Grid item xs={12} sm={6}>

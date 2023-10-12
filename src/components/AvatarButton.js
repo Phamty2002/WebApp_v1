@@ -6,7 +6,7 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import './styles.css'; // Import the CSS file
-
+import avatar from './images/avatar.jpg';
 function AvatarButton() {
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -26,7 +26,7 @@ function AvatarButton() {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        <Avatar alt="Avatar" src="static/images/avatar.jpg" />
+        <Avatar alt="Avatar" src={avatar} />
       </IconButton>
       <Menu
         id="simple-menu"

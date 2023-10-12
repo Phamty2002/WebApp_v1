@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Paper, Button } from '@mui/material';
+import pizzaImage from './images/pizza.jpg';
+import hotdogImage from './images/hotdog.jpg';
+import pastaImage from './images/pasta.jpg';
+import spaghettiImage from './images/spaghetti.jpg';
+import noodlesImage from './images/noodles.jpg';
+
 
 function Slider() {
   const [selectedSlide, setSelectedSlide] = useState(0);
@@ -10,30 +16,31 @@ function Slider() {
     {
       name: 'Pizza',
       description: 'Delicious pizza with your toppings.',
-      image: '/static/images/pizza.jpg',
+      image: pizzaImage,
     },
     {
       name: 'Hotdog',
       description: 'A classic hotdog with your condiments.',
-      image: '/static/images/hotdog.jpg',
+      image: hotdogImage,
     },
     {
       name: 'Pasta',
       description: 'Fresh pasta cooked to perfection.',
-      image: '/static/images/pasta.jpg',
+      image: pastaImage,
     },
     {
       name: 'Spaghetti',
       description: 'Spaghetti with your choice of sauce.',
-      image: '/static/images/spaghetti.jpg',
+      image: spaghettiImage,
     },
     {
       name: 'Noodles',
       description: 'Savory noodles with your ingredients.',
-      image: '/static/images/noodles.jpg',
+      image: noodlesImage,
     },
     // You can continue to add more items as needed
   ];
+  
 
   const handleNext = () => {
     setSelectedSlide((selectedSlide + 1) % items.length);
