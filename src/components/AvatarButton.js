@@ -6,7 +6,7 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import './styles.css'; // Import the CSS file
-import avatar from './images/avatar.jpg';
+import avatar from '../images/avatar.jpg';
 function AvatarButton() {
   const [anchorEl, setAnchorEl] = useState(null);
 

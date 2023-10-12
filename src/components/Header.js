@@ -5,13 +5,13 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import AvatarButton from './AvatarButton';
-
+import avatar from '../images/logo.jpg';
 function Header() {
   return (
     <AppBar position="static" sx={{ backgroundColor: '#B470D4' }}>
       <Toolbar>
         <Box display="flex" alignItems="center">
-          <img src="/static/images/logo.jpg" alt="Logo" width="40" height="40" />
+          <img src={avatar} alt="Logo" width="40" height="40" />
           <Typography variant="h6" sx={{ marginLeft: 2, color: '#FFFFFF' }}>
             Rose Petal Bistro
           </Typography>
