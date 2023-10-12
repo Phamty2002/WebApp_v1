@@ -10,27 +10,27 @@ function Slider() {
     {
       name: 'Pizza',
       description: 'Delicious pizza with your toppings.',
-      image: '/images/pizza.jpg',
+      image: 'static/images/pizza.jpg',
     },
     {
       name: 'Hotdog',
       description: 'A classic hotdog with your condiments.',
-      image: '/images/hotdog.jpg',
+      image: 'static/images/hotdog.jpg',
     },
     {
       name: 'Pasta',
       description: 'Fresh pasta cooked to perfection.',
-      image: '/images/pasta.jpg',
+      image: 'static/images/pasta.jpg',
     },
     {
       name: 'Spaghetti',
       description: 'Spaghetti with your choice of sauce.',
-      image: '/images/spaghetti.jpg',
+      image: 'static/images/spaghetti.jpg',
     },
     {
       name: 'Noodles',
       description: 'Savory noodles with your ingredients.',
-      image: '/images/noodles.jpg',
+      image: 'static/images/noodles.jpg',
     },
     // You can continue to add more items as needed
   ];

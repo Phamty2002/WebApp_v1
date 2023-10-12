@@ -11,7 +11,7 @@ function Header() {
     <AppBar position="static" sx={{ backgroundColor: '#B470D4' }}>
       <Toolbar>
         <Box display="flex" alignItems="center">
-          <img src="/images/logo.jpg" alt="Logo" width="40" height="40" />
+          <img src="static/images/logo.jpg" alt="Logo" width="40" height="40" />
           <Typography variant="h6" sx={{ marginLeft: 2, color: '#FFFFFF' }}>
             Rose Petal Bistro
           </Typography>

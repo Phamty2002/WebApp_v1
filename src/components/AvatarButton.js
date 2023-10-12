@@ -26,7 +26,7 @@ function AvatarButton() {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        <Avatar alt="Avatar" src="/images/avatar.jpg" />
+        <Avatar alt="Avatar" src="static/images/avatar.jpg" />
       </IconButton>
       <Menu
         id="simple-menu"
