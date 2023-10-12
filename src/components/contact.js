@@ -20,7 +20,7 @@ function Contact() {
               component="img"
               alt="Contact Image"
               height="450"
-              image="static/images/logo.jpg"
+              image="/static/images/logo.jpg"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
