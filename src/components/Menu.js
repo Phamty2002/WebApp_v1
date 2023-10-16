@@ -1,135 +1,53 @@
-import React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
-import CameraIcon from '@mui/icons-material/PhotoCamera';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AvatarButton from './AvatarButton'; // Import the AvatarButton component
+import React, { useState } from 'react';
+import Header from './MenuHeader';
+import Search from './MenuSearch';
+import MealList from './MenuMealList';
+import Modal from './MenuModal';
 
-function Copyright() {
+function Menu() {
+  const containerStyle = {
+    backgroundColor: '#DDCCE7', // Set the background color here
+  };
+
+  const [ingredient, setIngredient] = useState(''); // State for the ingredient input
+  const [meals, setMeals] = useState([]); // State for the list of meals
+  const [selectedMeal, setSelectedMeal] = useState(null); // State for the selected meal
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to control the modal
+
+  const handleSearch = async () => {
+    if (ingredient) {
+      // Perform the search functionality here
+      // You can make an API call to fetch meals by the ingredient
+      // Update the 'meals' state with the results
+    }
+  };
+
+  const handleMealClick = async (mealId) => {
+    // Handle meal click to display meal details in the modal
+    // You can make an API call to fetch meal details by ID
+    // Update the 'selectedMeal' state and open the modal
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
+    <div style={containerStyle}>
+      <Header />
+      <Search
+        ingredient={ingredient}
+        setIngredient={setIngredient}
+        handleSearch={handleSearch}
+      />
+      <MealList meals={meals} handleMealClick={handleMealClick} />
+      <Modal
+        meal={selectedMeal}
+        isOpen={isModalOpen}
+        closeModal={closeModal}
+      />
+    </div>
   );
 }
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
-
-export default function Menu() {
-  return (
-    <ThemeProvider theme={defaultTheme}>
-      <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar sx={{ justifyContent: 'space-between' }}> {/* Use justifyContent to push the Avatar to the right */}
-          <Typography variant="h6" color="inherit" noWrap>
-            Menu
-          </Typography>
-          <AvatarButton /> {/* Add the AvatarButton to the right */}
-        </Toolbar>
-      </AppBar>
-      <main>
-        {/* Hero unit */}
-        <Box
-          sx={{
-            bgcolor: 'background.paper',
-            pt: 8,
-            pb: 6,
-          }}
-        >
-          <Container maxWidth="sm">
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="text.primary"
-              gutterBottom
-            >
-            
-            </Typography>
-            <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              
-            </Typography>
-            <Stack
-              sx={{ pt: 4 }}
-              direction="row"
-              spacing={2}
-              justifyContent="center"
-            >
-              <Button variant="contained">BACK TO HOME PAGE</Button>
-              <Button variant="outlined">GO TO PAYMENT</Button>
-            </Stack>
-          </Container>
-        </Box>
-        <Container sx={{ py: 8 }} maxWidth="md">
-          {/* End hero unit */}
-          <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
-                <Card
-                  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                >
-                  <CardMedia
-                    component="div"
-                    sx={{
-                      // 16:9
-                      pt: '56.25%',
-                    }}
-                    image="https://source.unsplash.com/random?wallpapers"
-                  />
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Heading
-                    </Typography>
-                    <Typography>
-                      This is a media card. You can use this section to describe the
-                      content.
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small">Order</Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </main>
-      {/* Footer */}
-      <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
-          Something here to give the footer a purpose!
-        </Typography>
-        <Copyright />
-      </Box>
-      {/* End footer */}
-    </ThemeProvider>
-  );
-}
+export default Menu;
