@@ -1,74 +1,75 @@
-import React from 'react';
-import {
-  Box,
-  Container,
-  Typography,
-  TextField,
-  Button,
-  Paper,
-  Grid,
-  CardMedia,
-} from '@mui/material';
-import logoImage from '../images/logo.jpg';
+import React, { useState } from 'react';
+
+import logo from '../images/logo.jpg';
+import googleMapImage from '../images/mapImage.jpg';
 
 function Contact() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission here
+  };
+
   return (
-    <Container maxWidth="md">
-      <Box mt={5}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <CardMedia
-              component="img"
-              alt="Contact Image"
-              height="450"
-              image={logoImage} // Use the imported image
+    <div className="contact-container">
+      <div className="contact-card location-form">
+        <div className="location-details">
+          <img src={googleMapImage} alt="Google Map" />
+          <p>34 Đ. Số 12, Trường Thọ, Quận 9, Thành phố Hồ Chí Minh, Việt Nam</p>
+          <p>Phone: 0374856574</p>
+          <p>Email: typwebapp@email.com</p>
+        </div>
+      </div>
+
+      <div className="contact-card contact-form">
+        <form onSubmit={handleSubmit} className="contact-form">
+          <div className="form-header">
+            <img src={logo} className="logo" alt="Company Logo" />
+            <h3>Contact Support</h3>
+          </div>
+          <div className="form-group">
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography variant="h4" align="center" gutterBottom>
-              Contact Us
-            </Typography>
-            <Paper elevation={3} sx={{ padding: 3 }}>
-              <form>
-                <Grid container spacing={3}>
-                  <Grid item xs={12}>
-                    <TextField
-                      label="Name"
-                      variant="outlined"
-                      fullWidth
-                      required
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      label="Email"
-                      variant="outlined"
-                      fullWidth
-                      required
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      label="Message"
-                      variant="outlined"
-                      fullWidth
-                      multiline
-                      rows={4}
-                      required
-                    />
-                  </Grid>
-                </Grid>
-                <Box display="flex" justifyContent="center" mt={3}>
-                  <Button variant="contained" color="primary" type="submit">
-                    Send Message
-                  </Button>
-                </Box>
-              </form>
-            </Paper>
-          </Grid>
-        </Grid>
-      </Box>
-    </Container>
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="phone">Phone</label>
+            <input
+              type="tel"
+              id="phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="message">Message</label>
+            <textarea
+              id="message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
   );
 }
 
