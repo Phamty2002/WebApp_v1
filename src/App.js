@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SignIn from './components/Login';
 import Home from './components/Home';
 import Menu from './components/Menu';
+
 function App() {
   return (
     <Router>
@@ -14,6 +15,5 @@ function App() {
     </Router>
   );
 }
-
 
 export default App;
