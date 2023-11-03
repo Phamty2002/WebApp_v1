@@ -4,13 +4,13 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Login API',
+      title: 'API FOR WEBAPP PROJECT',
       version: '1.0.0',
-      description: 'API for user authentication',
+      description: "Website APIs are essential for extending a website's functionality and accessibility. These APIs, including Authentication, Content, Search, Data, Social Media, Payment, Maps, Analytics, Notification, Chat, and IoT, empower developers to enhance user experiences, facilitate secure transactions, and expand a website's reach. Understanding and utilizing these APIs are pivotal for maximizing a website's potential in the digital landscape.",
     },
   },
   // Define the API endpoints in the 'apis' array below.
-  apis: ['./src/routes/auth.js'], // Path to your route files.
+  apis: ['./src/routes/login.js', './src/routes/signup.js'] // Path to your route files.
 };
 
 const swaggerSpec = swaggerJsdoc(options);

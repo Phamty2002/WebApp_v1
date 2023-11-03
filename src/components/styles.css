@@ -320,10 +320,7 @@ h1{
     margin: 10px 0;
   }
 
-/* Login /*
-
-/* Add your styles here */
-
+/* Login */
 .login-container {
   display: flex;
   justify-content: center;
@@ -392,6 +389,79 @@ button:hover {
 }
 
 .signup-link a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+/*Sign up */
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background-color: #a471a5;
+}
+
+.signup-form {
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 110px;
+  text-align: center;
+  max-width: 500px;
+}
+
+.signup-form h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-link {
+  font-size: 1rem;
+  color: #007bff;
+  text-decoration: none;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.login-link {
+  font-size: 1rem;
+  margin-top: 20px;
+}
+
+.login-link a {
   color: #007bff;
   text-decoration: none;
 }

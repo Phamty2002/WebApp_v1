@@ -4,7 +4,7 @@ const express = require('express');
  * @swagger
  * /api/auth/login:
  *   post:
- *     summary: Authenticate a user.
+ *     summary: Login and Authenticate a user.
  *     description: Authenticate a user by username and password.
  *     tags:
  *       - Authentication

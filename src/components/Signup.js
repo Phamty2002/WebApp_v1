@@ -1,30 +1,31 @@
 import React, { useState } from 'react';
 
-function Login() {
+function SignUp() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const [error, setError] = useState('');
 
-  async function handleLogin(event) {
+  async function handleSignUp(event) {
     event.preventDefault();
 
     try {
-      const response = await fetch('/api/login/login', {
+      const response = await fetch('/api/signup/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, password, email }),
       });
 
       if (response.ok) {
-        // Handle successful login here, e.g., redirect to a new page
-        window.location.href = '/home'; // Redirect to the home page
+        // Handle successful sign-up here, e.g., redirect to a new page
+        window.location.href = '/sign-in'; // Redirect to the home page after sign-up
       } else {
-        // Handle authentication failure, show an error message
+        // Handle sign-up failure, show an error message
         const errorData = await response.json();
         setError(errorData.message);
-        console.error('Authentication failed');
+        console.error('Sign Up failed');
       }
     } catch (error) {
       // Handle network errors, request failures, etc.
@@ -34,9 +35,9 @@ function Login() {
   }
 
   return (
-    <div className="login-container">
-      <form className="login-form" onSubmit={handleLogin}>
-        <h2>Login</h2>
+    <div className="signup-container">
+      <form className="signup-form" onSubmit={handleSignUp}>
+        <h2>Sign Up</h2>
         {error && <div className="error">{error}</div>}
         <div className="form-group">
           <label htmlFor="username">Username</label>
@@ -61,17 +62,23 @@ function Login() {
           />
         </div>
         <div className="form-group">
-          <a href="/forgot-password" className="forgot-password-link">
-            Forgot Password?
-          </a>
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
-        <button type="submit">Sign In</button>
-        <p className="signup-link">
-          Don't have an account ? <a href="/sign-up">Sign-Up</a>
+        <button type="submit">Sign Up</button>
+        <p className="login-link">
+          Already have an account ? <a href="/sign-in">Log In</a>
         </p>
       </form>
     </div>
   );
 }
 
-export default Login;
+export default SignUp;
