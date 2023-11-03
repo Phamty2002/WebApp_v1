@@ -2,6 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const authRoutes = require('./routes/auth'); // Import your auth routes
+const swaggerJsdoc = require('./swagger');
+
+
+// Serve Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 
 const app = express();
 

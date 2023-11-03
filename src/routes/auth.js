@@ -1,5 +1,32 @@
 const express = require('express');
 
+/**
+ * @openapi
+ * /api/auth/login:
+ *   post:
+ *     summary: Login to the application
+ *     description: Authenticate a user.
+ *     requestBody:
+ *       description: User credentials
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Successful login
+ *       401:
+ *         description: Authentication failed
+ *       500:
+ *         description: Error checking user credentials
+ */
+
 module.exports = (db) => {
   const router = express.Router();
 
