@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
-const authRoutes = require('../routes/auth'); // Import your auth routes
+const authRoutes = require('./routes/auth'); // Import your auth routes
 
 const app = express();
 
@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root', // Replace with your MySQL username
-  password: 'Robertoty2002', // Replace with your MySQL password
+  password: 'Robertoty2002@', // Replace with your MySQL password
   database: 'FoodWeb', // Replace with your database name
 });
 
