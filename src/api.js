@@ -29,5 +29,5 @@ app.use('/api/auth', authRoutes(db)); // Use the auth routes with the MySQL conn
 // Add the app.listen method to start the server
 const port = 3000; // Specify the port you want to listen on
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:3000`);
+  console.log(`Server is running on http://localhost:${port}`);
 });
