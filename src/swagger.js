@@ -9,7 +9,8 @@ const options = {
       description: 'API for user authentication',
     },
   },
-  apis: ['./routes/auth'], // Path to your API route file
+  // Define the API endpoints in the 'apis' array below.
+  apis: ['./src/routes/auth.js'], // Path to your route files.
 };
 
 const swaggerSpec = swaggerJsdoc(options);
