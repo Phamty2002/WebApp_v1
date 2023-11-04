@@ -6,7 +6,7 @@
   "scripts": {
     "start": "concurrently \"npm run start-frontend\" \"npm run start-backend\"",
     "start-frontend": "react-scripts start --port 3001",
-    "start-backend": "node src/api.js",
+    "start-backend": "node Backend/src/Api.js",
     "build-frontend": "react-scripts build",
     "test-frontend": "react-scripts test",
     "eject-frontend": "react-scripts eject",
