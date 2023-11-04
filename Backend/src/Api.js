@@ -1,38 +1,31 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const mysql = require('mysql');
-const loginRoutes = require('./routes/login'); // Import your auth routes
-const signupRoutes = require('./routes/signup');
 const swaggerSpec = require('./swagger'); // Import your Swagger specification
 const swaggerUi = require('swagger-ui-express'); // Import swagger-ui-express
+const loginRoutes = require('./routes/login'); // Import your auth routes
+const signupRoutes = require('./routes/signup');
+const productsRoutes = require('./routes/products');
+const cors = require('cors');
 const app = express();
 
 // Serve Swagger UI
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.use(bodyParser.json());
+// Use built-in middleware for json
+app.use(express.json());
 
-const cors = require('cors');
+// Enable CORS with default options
+app.use(cors());
 
-// Configure your MySQL connection
-const db = mysql.createConnection({
-  host: 'db4free.net',
-  user: 'robertoty', // Replace with your MySQL username
-  password: 'Robertoty2002', // Replace with your MySQL password
-  database: 'foodweb', // Replace with your database name
+// Configure routes without passing the db object
+app.use('/api/login', loginRoutes);
+app.use('/api/signup', signupRoutes);
+app.use('/api/products', productsRoutes);
+
+// Error handling middleware (example)
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
 });
-
-db.connect((err) => {
-  if (err) {
-    console.error('Error connecting to MySQL_Database:', err);
-  } else {
-    console.log('Connected to MySQL_Database');
-  }
-});
-
-// Configure routes
-app.use('/api/login', loginRoutes(db)); // Use the auth routes with the MySQL connection
-app.use('/api/signup', signupRoutes(db));
 
 // Add the app.listen method to start the server
 const port = 3001; // Specify the port you want to listen on

@@ -474,25 +474,26 @@ button:hover {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+  background-color: rgba(0, 0, 0, 0.6); /* Slightly darker background for better contrast */
   display: flex;
-  align-items: center; /* Align vertical */
-  justify-content: center; /* Align horizontal */
+  align-items: center;
+  justify-content: center;
 }
 
 .modal-content {
-  background-color: #fefefe;
+  background-color: #ffffff;
   margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  max-width: 500px; /* You can adjust the max width as necessary */
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  border-radius: 5px; /* Optional: for rounded corners */
+  padding: 50px; /* Increased padding for a more spacious look */
+  border: none; /* Removed border for a cleaner look */
+  width: 180%;
+  max-width: 500px; /* Optimal reading width */
+  box-shadow: 0 12px 24px 0 rgba(0,0,0,0.2); /* Softer shadow for depth */
+  border-radius: 10px; /* Rounded corners for a friendlier feel */
+  overflow: hidden; /* Ensures nothing spills out of the container */
 }
 
 .close {
-  color: #aaaaaa;
+  color: #1c1818;
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -500,12 +501,27 @@ button:hover {
 
 .close:hover,
 .close:focus {
-  color: #000;
+  color: #ff5f5f; /* A hint of color on hover for feedback */
   text-decoration: none;
   cursor: pointer;
 }
 
 .error-message {
-  color: #ff0000; /* Red text for errors */
+  color: #D8000C; /* Standard color for error messages */
+  background-color: #FFD2D2; /* Light background to highlight error */
+  padding: 10px; /* Space around the text */
   margin: 10px 0;
+  border-radius: 5px; /* Rounded corners for the error message */
+  border: 1px solid #D8000C; /* Border color same as text to tie design together */
+  text-align: left; /* Align text to start for better readability */
 }
+
+/* Additional styles for the modal text to enhance readability */
+.modal-text {
+  font-size: 16px; /* Adequate font size for readability */
+  line-height: 1.6; /* Line height for reading comfort */
+  color: #333333; /* Darker text for better contrast */
+  margin-bottom: 20px; /* Space before the close button or any other content */
+}
+
+

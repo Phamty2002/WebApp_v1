@@ -1,75 +1,107 @@
+// routes/signup.js
 const express = require('express');
+const { registerNewUser } = require('../controllers/signupController');
+const router = express.Router();
 
 /**
  * @swagger
- * /api/signup/signup:
+ * tags:
+ *   name: Authentication
+ *   description: User authentication operations
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: The unique identifier of the user.
+ *           example: 1
+ *         name:
+ *           type: string
+ *           description: The name of the user.
+ *           example: John Doe
+ *         password:
+ *           type: string
+ *           description: The user's password (should be stored securely, not exposed in responses).
+ *           example: toitenty
+ *         email:
+ *           type: string
+ *           format: email
+ *           description: The email address of the user.
+ *           example: john.doe@example.com
+ */
+
+/**
+ * @swagger
+ * /signup:
  *   post:
- *     summary: Sign Up and Register a new user.
- *     description: Register a new user with a unique username, password and email.
- *     tags:
- *       - Authentication
- *     parameters:
- *       - in: body
- *         name: body
- *         required: true
- *         description: User registration information (username, password, email).
- *         schema:
- *           type: object
- *           properties:
- *             username:
- *               type: string
- *             password:
- *               type: string
- *             email:
- *               type: string
+ *     summary: Register a new user
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 description: The username for the new user.
+ *                 example: new_user
+ *               password:
+ *                 type: string
+ *                 description: The password for the new user.
+ *                 example: password123
+ *               email:
+ *                 type: string
+ *                 description: The email address for the new user.
+ *                 example: user@example.com
  *     responses:
  *       '201':
- *         description: User successfully registered.
- *       '400':
- *         description: Bad request. Missing or invalid parameters.
+ *         description: User successfully registered
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: A success message.
+ *                   example: User successfully registered.
+ *                 userId:
+ *                   type: integer
+ *                   description: The ID of the newly registered user.
+ *                   example: 123
  *       '409':
- *         description: Username or email already in use.
+ *         description: Conflict - Username or Email already in use
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: An error message.
+ *                   example: Username already in use.
  *       '500':
- *         description: Error registering the user.
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: An error message.
+ *                   example: Error registering the user.
  */
-module.exports = (db) => {
-  const router = express.Router();
 
-  router.post('/signup', (req, res) => {
-    const { username, password, email } = req.body;
 
-    // Check if the provided parameters are valid and not missing
-    if (!username || !password || !email) {
-      res.status(400).json({ message: 'Bad request. Missing or invalid parameters.' });
-      return;
-    }
+router.post('/signup', registerNewUser);
 
-    // Check if the username or email is already in use
-    db.query('SELECT * FROM users WHERE username = ? OR email = ?', [username, email], (err, rows) => {
-      if (err) {
-        console.error('Error checking username and email availability:', err);
-        res.status(500).json({ message: 'Error registering the user.' });
-      } else if (rows.length > 0) {
-        // Check if username or email is already in use
-        const user = rows[0];
-        if (user.username === username) {
-          res.status(409).json({ message: 'Username already in use.' });
-        } else {
-          res.status(409).json({ message: 'Email already in use.' });
-        }
-      } else {
-        // Register the user
-        db.query('INSERT INTO users (username, password, email) VALUES (?, ?, ?)', [username, password, email], (err, result) => {
-          if (err) {
-            console.error('Error registering the user:', err);
-            res.status(500).json({ message: 'Error registering the user.' });
-          } else {
-            res.status(201).json({ message: 'User successfully registered.' });
-          }
-        });
-      }
-    });
-  });
-
-  return router;
-};
+module.exports = router;

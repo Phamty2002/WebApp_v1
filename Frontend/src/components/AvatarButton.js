@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate instead of useHistory
+import IconButton from '@mui/material/IconButton';
+import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import '../styles/styles'; // Import the CSS file
+import '../styles/styles.css';
 import avatar from '../images/avatar.jpg';
+
 function AvatarButton() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate(); // Create an instance of useNavigate
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget); // Open the menu
@@ -16,6 +17,14 @@ function AvatarButton() {
 
   const handleClose = () => {
     setAnchorEl(null); // Close the menu
+  };
+
+  const handleSignOut = () => {
+    // Perform sign-out logic here, like clearing user data
+    localStorage.removeItem('userData'); // Example: Remove user data from local storage
+
+    handleClose(); // Close the menu
+    navigate('/sign-in'); // Redirect to the sign-in page
   };
 
   return (
@@ -37,7 +46,7 @@ function AvatarButton() {
       >
         <MenuItem onClick={handleClose}>My Profile</MenuItem>
         <MenuItem onClick={handleClose}>Settings</MenuItem>
-        <MenuItem onClick={handleClose}>Sign Out</MenuItem>
+        <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
       </Menu>
     </div>
   );

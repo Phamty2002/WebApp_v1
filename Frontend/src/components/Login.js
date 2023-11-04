@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/styles';
+import '../styles/styles.css';
 
 function Modal({ message, onClose }) {
   console.log('Modal rendering with message:', message); // Log to see if this component renders
@@ -23,7 +23,7 @@ function Login() {
   async function handleLogin(event) {
     event.preventDefault();
     console.log('Handle login called'); // Log to see if the function is called
-
+  
     try {
       const response = await fetch('/api/login/login', {
         method: 'POST',
@@ -32,7 +32,7 @@ function Login() {
         },
         body: JSON.stringify({ username, password }),
       });
-
+  
       if (response.ok) {
         console.log('Login successful, setting message'); // Log on success
         setMessage('Login successful! Redirecting...');
@@ -42,16 +42,22 @@ function Login() {
         }, 3000); // Delay the redirect to allow the user to see the message
       } else {
         console.log('Login failed, setting error message'); // Log on failure
-        const errorData = await response.json();
-        setError(errorData.message);
-        setMessage('Login failed: ' + errorData.message); // Set the error message
+        let errorMessage = 'Login Failed: username or password is not correct'; // Default error message
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.message || errorMessage;
+        } catch (e) {
+          console.error('Error parsing JSON:', e);
+        }
+        setError(errorMessage);
+        setMessage(errorMessage); // Set the error message
       }
     } catch (error) {
       console.log('An error occurred, setting error message'); // Log on catch
       setError('An error occurred');
       setMessage('An error occurred: ' + error.message); // Set the network error message
     }
-  }
+  }  
 
   return (
     <div className="login-container">

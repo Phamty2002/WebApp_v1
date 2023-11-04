@@ -27,16 +27,22 @@ function Header() {
     <AppBar position="static" sx={appBarStyle}>
       <Toolbar>
         <Box display="flex" alignItems="center">
-          <img src={avatar} alt="Logo" width="70" height="70" />
-          <Typography variant="h6" sx={{ marginLeft: 2, color: '#FFFFFF' }}>
-            Rose Petal Bistro
-          </Typography>
+          <Link to="/home" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+            <img src={avatar} alt="Logo" width="70" height="70" />
+            <Typography variant="h6" sx={{ marginLeft: 2, color: '#FFFFFF' }}>
+              Rose Petal Bistro
+            </Typography>
+          </Link>
         </Box>
         <Box display="flex" flexGrow={1} justifyContent="flex-end">
-          {/* Use Link to navigate to the Home component with overridden styles */}
-          <Link to="/Home" style={linkStyle}>
+          <Link to="/home" style={linkStyle}>
             <Button color="inherit" sx={buttonStyle}>
               Home
+            </Button>
+          </Link>
+          <Link to="/menu" style={linkStyle}>
+            <Button color="inherit" sx={buttonStyle}>
+              Menu
             </Button>
           </Link>
           <Link to="/about" style={linkStyle}>
@@ -44,9 +50,10 @@ function Header() {
               About Us
             </Button>
           </Link>
-          <Link to="/Sign-in" style={linkStyle}>
+          {/* Added Contact link */}
+          <Link to="/contact" style={linkStyle}>
             <Button color="inherit" sx={buttonStyle}>
-              Sign In
+              Contact
             </Button>
           </Link>
           <AvatarButton />

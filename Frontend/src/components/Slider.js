@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Paper, Button } from '@mui/material';
@@ -74,7 +75,7 @@ function Slider() {
                 <p>{item.description}</p>
               </div>
               <div style={{ height: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <Button variant="contained" color="primary">
+              <Button variant="contained" color="primary" component={Link} to="/menu">
                   Go to Menu
                 </Button>
               </div>
