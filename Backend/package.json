@@ -1,12 +1,21 @@
 {
-  "name": "backend",
+  "name": "my-webapp-backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "The back-end part of the application with Express",
+  "main": "src/Api.js",
   "scripts": {
+    "start": "node src/Api.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "body-parser": "^1.20.2",
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "mysql": "^2.18.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
+  },
   "license": "ISC"
 }
