@@ -1,12 +1,28 @@
 import React, { useState } from 'react';
+import '../styles/styles';
+
+function Modal({ message, onClose }) {
+  console.log('Modal rendering with message:', message); // Log to see if this component renders
+  // Now, the modal visibility is controlled by inline style based on the `message`.
+  return (
+    <div className="modal" style={{ display: message ? 'flex' : 'none' }}>
+      <div className="modal-content">
+        <span className="close" onClick={onClose}>&times;</span>
+        <p>{message}</p>
+      </div>
+    </div>
+  );
+}
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
 
   async function handleLogin(event) {
     event.preventDefault();
+    console.log('Handle login called'); // Log to see if the function is called
 
     try {
       const response = await fetch('/api/login/login', {
@@ -18,26 +34,31 @@ function Login() {
       });
 
       if (response.ok) {
-        // Handle successful login here, e.g., redirect to a new page
-        window.location.href = '/home'; // Redirect to the home page
+        console.log('Login successful, setting message'); // Log on success
+        setMessage('Login successful! Redirecting...');
+        setTimeout(() => {
+          setMessage(''); // Clear message before redirect
+          window.location.href = '/home'; // Redirect to the home page after a delay
+        }, 3000); // Delay the redirect to allow the user to see the message
       } else {
-        // Handle authentication failure, show an error message
+        console.log('Login failed, setting error message'); // Log on failure
         const errorData = await response.json();
         setError(errorData.message);
-        console.error('Authentication failed');
+        setMessage('Login failed: ' + errorData.message); // Set the error message
       }
     } catch (error) {
-      // Handle network errors, request failures, etc.
+      console.log('An error occurred, setting error message'); // Log on catch
       setError('An error occurred');
-      console.error('An error occurred', error);
+      setMessage('An error occurred: ' + error.message); // Set the network error message
     }
   }
 
   return (
     <div className="login-container">
+      <Modal message={message} onClose={() => setMessage('')} />
       <form className="login-form" onSubmit={handleLogin}>
         <h2>Login</h2>
-        {error && <div className="error">{error}</div>}
+        {error && <div className="error-message">{error}</div>}
         <div className="form-group">
           <label htmlFor="username">Username</label>
           <input
