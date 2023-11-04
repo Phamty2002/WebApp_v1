@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Expose ports (for Express.js server, if applicable)
-EXPOSE 3001
+EXPOSE 8080
 
 # Start your application
 CMD ["npm", "start"]
