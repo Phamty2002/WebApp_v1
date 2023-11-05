@@ -29,8 +29,8 @@ exports.getProductById = (req, res) => {
 
 // Create a new product
 exports.createProduct = (req, res) => {
-  const { name, price, description } = req.body;
-  db.query('INSERT INTO products (name, price, description) VALUES (?, ?, ?)', [name, price, description], (err, results) => {
+  const { name, price, description, image_path } = req.body;
+  db.query('INSERT INTO products (name, price, description, image_path) VALUES (?, ?, ?, ?)', [name, price, description, image_path], (err, results) => {
     if (err) {
       return res.status(500).send(err);
     }
@@ -40,30 +40,32 @@ exports.createProduct = (req, res) => {
 
 // Update a product
 exports.updateProductByName = (req, res) => {
-  const { name } = req.params; // assuming you pass the product name as a URL parameter
-  const { price, description } = req.body; // assuming these are the only fields you want to update
-
-  if (!price && !description) {
-    return res.status(400).send("No update information provided.");
-  }
+  const { name } = req.params;
+  const { price, description, image_path } = req.body;
 
   let updateQuery = 'UPDATE products SET ';
   let queryParams = [];
   let updateParts = [];
 
-  // Add price to the update query if it is provided
   if (price) {
     updateParts.push('price = ?');
     queryParams.push(price);
   }
 
-  // Add description to the update query if it is provided
   if (description) {
     updateParts.push('description = ?');
     queryParams.push(description);
   }
 
-  // Finish the update query
+  if (image_path) {
+    updateParts.push('image_path = ?');
+    queryParams.push(image_path);
+  }
+
+  if (updateParts.length === 0) {
+    return res.status(400).send("No update information provided.");
+  }
+
   updateQuery += updateParts.join(', ');
   updateQuery += ' WHERE name = ?';
   queryParams.push(name);

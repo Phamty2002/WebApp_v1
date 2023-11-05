@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import ProductForm from './productForm';
-import ProductItem from './productItem';
+import ProductItem from '../components/ProductItem';
+import ProductForm from './ProductForm';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);

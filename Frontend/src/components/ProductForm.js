@@ -1,42 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const ProductForm = ({ setProducts }) => {
+const ProductForm = ({ productToEdit, setProducts, clearProductToEdit }) => {
+  // If productToEdit has a value, we're in "edit" mode, otherwise we're adding a new product.
+  const isEditMode = productToEdit !== null;
+
+  // Form state
   const [formData, setFormData] = useState({
     name: '',
     price: '',
     description: '',
-    image: null,
+    // You might need to handle the image file separately if you're uploading files
   });
 
-  const handleChange = (e) => {
-    const value = e.target.type === 'file' ? e.target.files[0] : e.target.value;
-    setFormData({ ...formData, [e.target.name]: value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const data = new FormData();
-    
-    // Append form data
-    for (const key in formData) {
-      data.append(key, formData[key]);
-    }
-
-    try {
-      // Call the addProduct method passed as a prop
-      await setProducts(formData);
-      // Reset the form data
+  // If productToEdit changes and is not null, update the formData state
+  useEffect(() => {
+    if (isEditMode) {
       setFormData({
-        name: '',
-        price: '',
-        description: '',
-        image: null,
+        name: productToEdit.name,
+        price: productToEdit.price,
+        description: productToEdit.description,
+        // Make sure you handle the image state correctly if necessary
       });
-    } catch (error) {
-      console.error('Error adding product:', error);
+    }
+  }, [productToEdit, isEditMode]);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (isEditMode) {
+      // Update product
+      try {
+        await axios.put(`/api/products/${productToEdit.name}`, formData);
+        // Here you would also update the products state in the parent component
+        setProducts((prevProducts) => {
+          // Logic to update the product in the products array
+        });
+        // Clear the form
+        clearProductToEdit();
+      } catch (error) {
+        console.error('Error updating product:', error);
+      }
+    } else {
+      // Add product
+      try {
+        const response = await axios.post('/api/products', formData);
+        setProducts((prevProducts) => [...prevProducts, response.data]);
+        // Clear the form
+        setFormData({
+          name: '',
+          price: '',
+          description: '',
+        });
+      } catch (error) {
+        console.error('Error adding product:', error);
+      }
     }
   };
+
 
   return (
     <div className="product-form-container">
@@ -86,7 +114,9 @@ const ProductForm = ({ setProducts }) => {
             onChange={handleChange}
           />
         </div>
-        <button type="submit" className="btn">Add Product</button>
+        <button type="submit" className="btn">
+          {isEditMode ? 'Update Product' : 'Add Product'}
+        </button>
       </form>
     </div>
   );
