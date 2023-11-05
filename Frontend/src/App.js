@@ -4,7 +4,7 @@ import SignIn from './components/Login';
 import SignUp from './components/Signup';
 import Home from './components/Home';
 import Menu from './components/Menu';
-import CrudOperations from './components/CrudOperations'; // Import the new component
+import CrudProduct from './components/CrudProduct'; // Import the new component
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/home" element={<Home />} />
         <Route path="/menu" element={<Menu />} />
-        <Route path="/crud" element={<CrudOperations />} /> {/* Add a route for the new component */}
+        <Route path="/crud" element={<CrudProduct />} /> {/* Add a route for the new component */}
       </Routes>
     </Router>
   );
