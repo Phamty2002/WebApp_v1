@@ -619,6 +619,64 @@ button:hover {
   font-weight: bold;
 }
 
+/* Menu page */
+/* Styles for the search input */
+/* Style for the search input */
+.search-input {
+  margin: 20px 0;
+}
+
+/* General styling for the menu item card */
+.menu-item-card {
+  margin: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.menu-item-card:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Styling for the image inside the card */
+.menu-item-image {
+  max-width: 150%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* Styling for the item name */
+.menu-item-name {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Styling for the item description */
+.menu-item-description {
+  margin-top: 5px;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Styling for the item price */
+.menu-item-price {
+  margin-top: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Styling for the order button */
+.order-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.order-button:hover {
+  background-color: #0056b3;
+}
+
+
+
 
 
 

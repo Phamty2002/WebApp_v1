@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Header from './Header';
-
+import { ProductsContext } from '../context/ProductsContext';
 
 function CrudOperations() {
+  const { products, setProducts } = useContext(ProductsContext);
+
   const [action, setAction] = useState(null);
-  const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({
     id: '',
     name: '',
@@ -28,7 +29,7 @@ function CrudOperations() {
         .then(data => setProducts(data))
         .catch(error => console.error('Error fetching products:', error));
     }
-  }, [action]);
+  }, [action, setProducts]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
