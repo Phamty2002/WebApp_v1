@@ -524,4 +524,101 @@ button:hover {
   margin-bottom: 20px; /* Space before the close button or any other content */
 }
 
+/*Product Form for Insert */
+.product-form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.product-form {
+  display: grid;
+  grid-gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #343a40;
+  margin-bottom: 0.5rem;
+}
+
+.form-control {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.form-control:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+/* Additional styling for file input to make it more consistent */
+.form-control[type="file"] {
+  height: auto;
+  border: 1px solid #ced4da;
+  background: white;
+  padding: 0.25rem 0.5rem;
+}
+
+/* Style the placeholder when no file is chosen */
+.form-control[type="file"]::before {
+  content: attr(data-placeholder) ' No file chosen';
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  width: 90%;
+  text-overflow: ellipsis;
+}
+
+/* Hide the default file input button */
+.form-control[type="file"]::-webkit-file-upload-button {
+  visibility: hidden;
+  display: none;
+}
+
+/* Custom button to trigger file selection */
+.custom-file-upload {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: white;
+  background-color: #28a745;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.custom-file-upload:hover {
+  background-color: #218838;
+}
+
+
 
