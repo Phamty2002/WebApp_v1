@@ -5,6 +5,11 @@ import { ProductsContext } from '../context/ProductsContext';
 function CrudOperations() {
   const { products, setProducts } = useContext(ProductsContext);
 
+  // State for specific product retrieval
+  const [specificProductName, setSpecificProductName] = useState('');
+  const [specificProduct, setSpecificProduct] = useState(null);
+
+
   const [action, setAction] = useState(null);
   const [product, setProduct] = useState({
     id: '',
@@ -42,6 +47,7 @@ function CrudOperations() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log('Submitting product:', product); // Log the product object
     fetch('/api/products', {
       method: 'POST',
       headers: {
@@ -49,36 +55,38 @@ function CrudOperations() {
       },
       body: JSON.stringify(product)
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Product created:', data);
-        setProducts([...products, data]);
-        setProduct({ id: '', name: '', price: '', description: '', image_path: '' }); // Reset the form
-      })
-      .catch(error => console.error('Error creating product:', error));
+    .then(response => response.json())
+    .then(data => {
+      console.log('Product created:', data);
+      setProducts([...products, data]);
+      setProduct({ id: '', name: '', price: '', description: '', image_path: '' }); // Reset the form
+    })
+    .catch(error => console.error('Error creating product:', error));
   };
 
   const handleUpdateSubmit = (e) => {
     e.preventDefault();
     fetch(`/api/products/update/${currentProduct.name}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        price: currentProduct.price,
-        description: currentProduct.description,
-        // You may include other fields as needed
-      })
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            price: currentProduct.price,
+            description: currentProduct.description,
+            image_path: currentProduct.image_path, // Include the image_path in the update
+        })
     })
-      .then(response => response.json())
-      .then(data => {
+    .then(response => response.json())
+    .then(data => {
         console.log('Product updated:', data);
-        setProducts(products.map(p => (p.id === currentProduct.id ? { ...p, ...data } : p)));
-        setCurrentProduct({ id: '', name: '', price: '', description: '', image_path: '' }); // Reset the form
-      })
-      .catch(error => console.error('Error updating product:', error));
-  };
+        // Here you should also update the product list with the new image path
+        setProducts(products.map(p => (p.id === currentProduct.id ? { ...p, ...currentProduct } : p)));
+        // Reset the current product
+        setCurrentProduct({ id: '', name: '', price: '', description: '', image_path: '' });
+    })
+    .catch(error => console.error('Error updating product:', error));
+};
 
   const handleDelete = (productName) => {
     fetch(`/api/products/delete/${productName}`, {
@@ -92,6 +100,25 @@ function CrudOperations() {
   };
 
   const [deleteProductName, setDeleteProductName] = useState('');
+
+  // Function to fetch a specific product by name
+  const fetchSpecificProduct = (productName) => {
+    // API call to fetch the specific product by name
+    fetch(`/api/products/${productName}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Product not found');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setSpecificProduct(data);
+      })
+      .catch(error => {
+        console.error('Error fetching specific product:', error);
+        setSpecificProduct(null);
+      });
+  };
 
   const renderBox = () => {
     switch (action) {
@@ -125,21 +152,52 @@ function CrudOperations() {
               value={product.image_path}
               onChange={handleInputChange}
             />
-      <button type="submit" style={{ marginTop: '10px' }}>Update Product</button>
+      <button type="submit" style={{ marginTop: '10px' }}>Insert Product</button>
           </form>
         );
+
+        
         case 'see':
   return (
     <div>
       <h3>Product List</h3>
+      {/* Form for fetching a specific product */}
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        fetchSpecificProduct(specificProductName);
+      }}>
+        <input
+          type="text"
+          placeholder="Enter product name to see details"
+          value={specificProductName}
+          onChange={(e) => setSpecificProductName(e.target.value)}
+          style={{ marginRight: '10px' }}
+        />
+        <button type="submit" style={{ marginTop: '10px' }}>Get Specific Product</button>
+      </form>
+
+      {/* Display the specific product if it is fetched */}
+      {specificProduct && (
+        <div style={{ border: '1px solid #ccc', padding: '10px', marginTop: '10px' }}>
+          <p><strong>ID:</strong> {specificProduct.id}</p>
+          <p><strong>Name:</strong> {specificProduct.name}</p>
+          <p><strong>Price:</strong> {specificProduct.price}</p>
+          <p><strong>Description:</strong> {specificProduct.description}</p>
+          {specificProduct.image_path && (
+            <img src={specificProduct.image_path} alt={specificProduct.name} style={{ width: '100%', height: 'auto', display: 'block', marginBottom: '10px' }} />
+          )}
+        </div>
+      )}
+
+      {/* List all products */}
       {products.map((product, index) => (
         <div key={index} style={{ border: '1px solid #ccc', padding: '10px', marginBottom: '10px' }}>
-          <p><span style={{ fontWeight: 'bold' }}>ID:</span> {product.id}</p>
-          <p><span style={{ fontWeight: 'bold' }}>Name:</span> {product.name}</p>
-          <p><span style={{ fontWeight: 'bold' }}>Price:</span> {product.price}</p>
-          <p><span style={{ fontWeight: 'bold' }}>Description:</span> {product.description}</p>
+          <p><strong>ID:</strong> {product.id}</p>
+          <p><strong>Name:</strong> {product.name}</p>
+          <p><strong>Price:</strong> {product.price}</p>
+          <p><strong>Description:</strong> {product.description}</p>
           {product.image_path && (
-            <img src={product.image_path} alt={product.name} style={{ width: '500px', height: '300px', display: 'block', marginBottom: '15px', marginTop: '10px'}} />
+            <img src={product.image_path} alt={product.name} style={{ width: '500px', height: '300px', display: 'block', marginBottom: '15px', marginTop: '10px' }} />
           )}
           <div style={{ marginTop: '10px' }}>
             <button onClick={() => {
@@ -152,10 +210,6 @@ function CrudOperations() {
       ))}
     </div>
   );
-
-
-
-
             
       case 'update':
         return (
@@ -211,6 +265,8 @@ function CrudOperations() {
                   <button onClick={handleDeleteByName} style={{ marginTop: '10px', }}>Delete Product</button>
                 </div>
               );
+
+              
               default:
       return null; // Handle any unexpected action value
     }
@@ -218,16 +274,17 @@ function CrudOperations() {
 
   return (
     <div>
-        <Header />
-    <div className="container">
-      <div className="button-group">
-        <button onClick={() => setAction('insert')}>Insert</button>
-        <button onClick={() => setAction('see')}>See</button>
-        <button onClick={() => setAction('update')}>Update</button>
-        <button onClick={() => setAction('delete')}>Delete</button>
+      <Header />
+      <div className="container">
+        <div className="button-group">
+          <button onClick={() => setAction('insert')}>Insert Products</button>
+          <button onClick={() => setAction('see')}>View Products</button>
+          <button onClick={() => setAction('update')}>Update Products</button>
+          <button onClick={() => setAction('delete')}>Delete Products</button>
+          
+        </div>
+        {renderBox()}
       </div>
-      {renderBox()}
-    </div>
     </div>
   );
   }

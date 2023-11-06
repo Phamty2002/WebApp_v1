@@ -7,7 +7,7 @@ const productsController = require('../controllers/productsController');
  * @swagger
  * tags:
  *   name: Products
- *   description: Product management operations
+ *   description: The products management API endpoints.
  */
 
 /**
@@ -16,164 +16,154 @@ const productsController = require('../controllers/productsController');
  *   schemas:
  *     Product:
  *       type: object
+ *       required:
+ *         - id
+ *         - name
+ *         - price
+ *         - image_path
  *       properties:
  *         id:
  *           type: integer
- *           description: The ID of the product.
+ *           description: Unique identifier for the product.
  *           example: 1
  *         name:
  *           type: string
  *           description: The name of the product.
- *           example: Sample Product
+ *           example: "Sample Product"
  *         price:
  *           type: number
+ *           format: double
  *           description: The price of the product.
  *           example: 29.99
  *         description:
  *           type: string
- *           description: The description of the product.
- *           example: This is a sample product description.
+ *           description: A brief description of the product.
+ *           example: "This is a sample product description."
+ *         image_path:
+ *           type: string
+ *           description: The relative URL path to the product's image.
+ *           example: "/images/sample-product.jpg"
+ *     
  */
 
 /**
  * @swagger
  * /products:
  *   get:
- *     summary: Get all products
+ *     summary: Retrieves a list of products
  *     tags: [Products]
  *     responses:
- *       '200':
- *         description: A list of all products
+ *       200:
+ *         description: An array of products
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Product'
- *       '500':
- *         description: Internal Server Error
+ *       500:
+ *         description: Server error
  */
-
 
 /**
  * @swagger
  * /products/{id}:
  *   get:
- *     summary: Get a product by ID
+ *     summary: Retrieves a product by its ID
  *     tags: [Products]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: The ID of the product to retrieve.
+ *         description: Numeric ID of the product to retrieve.
  *         schema:
  *           type: integer
  *     responses:
- *       '200':
- *         description: The requested product
+ *       200:
+ *         description: Detailed product information
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Product'
- *       '404':
+ *       404:
  *         description: Product not found
- *       '500':
- *         description: Internal Server Error
+ *       500:
+ *         description: Server error
  */
 
 /**
  * @swagger
  * /products:
  *   post:
- *     summary: Create a new product
+ *     summary: Creates a new product
  *     tags: [Products]
  *     requestBody:
  *       required: true
+ *       description: Product data for the new product.
  *       content:
  *         application/json:
  *           schema:
  *             $ref: '#/components/schemas/NewProduct'
  *     responses:
- *       '201':
- *         description: Product created successfully
+ *       201:
+ *         description: Product created successfully.
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: integer
- *                   description: The ID of the newly created product.
- *                 name:
- *                   type: string
- *                   description: The name of the product.
- *                 price:
- *                   type: number
- *                   description: The price of the product.
- *                 description:
- *                   type: string
- *                   description: The description of the product.
- *                 message:
- *                   type: string
- *                   description: A success message.
- *                   example: Product created successfully
- *       '500':
- *         description: Internal Server Error
+ *               $ref: '#/components/schemas/Product'
+ *       500:
+ *         description: Server error
  */
 
 /**
  * @swagger
  * /products/{name}:
  *   put:
- *     summary: Update a product by name
+ *     summary: Updates an existing product by name
  *     tags: [Products]
  *     parameters:
  *       - in: path
  *         name: name
  *         required: true
- *         description: The name of the product to update.
+ *         description: Name of the product to update.
  *         schema:
  *           type: string
  *     requestBody:
  *       required: true
+ *       description: Product data to update the product with.
  *       content:
  *         application/json:
  *           schema:
  *             $ref: '#/components/schemas/UpdateProduct'
  *     responses:
- *       '200':
- *         description: Product updated successfully
+ *       200:
+ *         description: Product updated successfully.
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   description: A success message.
- *                   example: Product updated successfully
- *       '404':
+ *               $ref: '#/components/schemas/Product'
+ *       404:
  *         description: Product not found
- *       '500':
- *         description: Internal Server Error
+ *       500:
+ *         description: Server error
  */
 
 /**
  * @swagger
  * /products/{name}:
  *   delete:
- *     summary: Delete a product by name
+ *     summary: Deletes an existing product by name
  *     tags: [Products]
  *     parameters:
  *       - in: path
  *         name: name
  *         required: true
- *         description: The name of the product to delete.
+ *         description: Name of the product to delete.
  *         schema:
  *           type: string
  *     responses:
- *       '200':
- *         description: Product deleted successfully
+ *       200:
+ *         description: Product deleted successfully.
  *         content:
  *           application/json:
  *             schema:
@@ -181,17 +171,20 @@ const productsController = require('../controllers/productsController');
  *               properties:
  *                 message:
  *                   type: string
- *                   description: A success message.
- *                   example: Product deleted successfully
- *       '404':
+ *                   description: Confirmation of the deletion.
+ *                   example: "Product deleted successfully."
+ *       404:
  *         description: Product not found
- *       '500':
- *         description: Internal Server Error
+ *       500:
+ *         description: Server error
  */
 
+
+
 router.get('/', productsController.getAllProducts);
-router.get('/:id', productsController.getProductById);
+router.get('/:name', productsController.getProductByName);
 router.post('/', productsController.createProduct);
 router.put('/update/:name', productsController.updateProductByName);
 router.delete('/delete/:name', productsController.deleteProductByName);
+
 module.exports = router;
