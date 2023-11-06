@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 
+
 function SignUp() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   async function handleSignUp(event) {
     event.preventDefault();
@@ -33,6 +36,16 @@ function SignUp() {
       console.error('An error occurred', error);
     }
   }
+
+  // Function to open the modal
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  // Function to close the modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="signup-container">
@@ -72,11 +85,26 @@ function SignUp() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <button type="submit">Sign Up</button>
+        <button type="submit" onClick={openModal}>
+          Sign Up
+        </button>
         <p className="login-link">
           Already have an account ? <a href="/sign-in">Log In</a>
         </p>
       </form>
+
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={closeModal}>
+              &times;
+            </span>
+            <h2>Sign Up Successful</h2>
+            <p>Your sign-up was successful. You can now log in.</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

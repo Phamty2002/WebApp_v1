@@ -5,7 +5,7 @@ import SignUp from './components/Signup';
 import Home from './components/Home';
 import Menu from './components/Menu';
 import CrudProduct from './components/CrudProduct';
-import { ProductsProvider } from './context/ProductsContext'; // Make sure the path is correct
+import { ProductsProvider } from './context/ProductsContext';
 
 function App() {
   return (
